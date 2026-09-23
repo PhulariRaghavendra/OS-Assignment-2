@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #define MAX_PROCESSES 100
 
@@ -12,6 +13,14 @@ struct Process {
 
 struct Process processes[MAX_PROCESSES];
 int n = 0;
+
+
+/* Function to convert state to uppercase */
+void convertToUpperCase(char str[]) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        str[i] = toupper((unsigned char)str[i]);
+    }
+}
 
 
 /* Function to enter process details */
@@ -32,13 +41,16 @@ void enterProcesses() {
         scanf("%d", &processes[i].pid);
 
         printf("Enter Process Name: ");
-        scanf(" %[^\n]", processes[i].name);
+        scanf("%49s", processes[i].name);
 
         printf("Enter Priority: ");
         scanf("%d", &processes[i].priority);
 
         printf("Enter State (Ready/Running/Waiting/Terminated): ");
-        scanf("%s", processes[i].state);
+        scanf("%19s", processes[i].state);
+
+        /* Convert state to uppercase */
+        convertToUpperCase(processes[i].state);
     }
 
     printf("\nProcess details entered successfully!\n");
@@ -53,7 +65,7 @@ void displayProcesses() {
     }
 
     printf("\n====================================================\n");
-    printf("                ALL PROCESS DETAILS\n");
+    printf("              ALL PROCESS DETAILS\n");
     printf("====================================================\n");
 
     printf("%-10s %-20s %-10s %-15s\n",
@@ -108,7 +120,10 @@ void displayProcessesByState() {
     int found = 0;
 
     printf("\nEnter state to search for: ");
-    scanf("%s", requiredState);
+    scanf("%19s", requiredState);
+
+    /* Convert entered state to uppercase */
+    convertToUpperCase(requiredState);
 
     printf("\nProcesses in %s state:\n", requiredState);
 
@@ -149,14 +164,16 @@ void changeProcessState() {
     scanf("%d", &pid);
 
     for (int i = 0; i < n; i++) {
-
         if (processes[i].pid == pid) {
 
             printf("Process found: %s\n", processes[i].name);
             printf("Current State: %s\n", processes[i].state);
 
             printf("Enter New State (Ready/Running/Waiting/Terminated): ");
-            scanf("%s", newState);
+            scanf("%19s", newState);
+
+            /* Convert new state to uppercase */
+            convertToUpperCase(newState);
 
             strcpy(processes[i].state, newState);
 
@@ -201,7 +218,6 @@ void displayCurrentStates() {
 
 /* Main function */
 int main() {
-
     int choice;
 
     printf("========================================\n");
@@ -211,8 +227,8 @@ int main() {
     enterProcesses();
 
     do {
-
         printf("\n\n");
+
         printf("1. Display All Process Details\n");
         printf("2. Display Highest Priority Process\n");
         printf("3. Display Processes by State\n");
