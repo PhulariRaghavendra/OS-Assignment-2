@@ -208,16 +208,17 @@ int main() {
     printf("      PROCESS MANAGEMENT SIMULATOR\n");
     printf("========================================\n");
 
+    enterProcesses();
+
     do {
 
         printf("\n\n");
-        printf("1. Enter Process Details\n");
-        printf("2. Display All Process Details\n");
-        printf("3. Display Highest Priority Process\n");
-        printf("4. Display Processes by State\n");
-        printf("5. Change Process State\n");
-        printf("6. Display Current State of All Processes\n");
-        printf("7. Exit\n");
+        printf("1. Display All Process Details\n");
+        printf("2. Display Highest Priority Process\n");
+        printf("3. Display Processes by State\n");
+        printf("4. Change Process State\n");
+        printf("5. Display Current State of All Processes\n");
+        printf("6. Exit\n");
 
         printf("\nEnter your choice: ");
         scanf("%d", &choice);
@@ -225,30 +226,26 @@ int main() {
         switch (choice) {
 
             case 1:
-                enterProcesses();
-                break;
-
-            case 2:
                 displayProcesses();
                 break;
 
-            case 3:
+            case 2:
                 displayHighestPriority();
                 break;
 
-            case 4:
+            case 3:
                 displayProcessesByState();
                 break;
 
-            case 5:
+            case 4:
                 changeProcessState();
                 break;
 
-            case 6:
+            case 5:
                 displayCurrentStates();
                 break;
 
-            case 7:
+            case 6:
                 printf("\nExiting program...\n");
                 break;
 
@@ -256,7 +253,7 @@ int main() {
                 printf("\nInvalid choice. Please try again.\n");
         }
 
-    } while (choice != 7);
+    } while (choice != 6);
 
     return 0;
 }
